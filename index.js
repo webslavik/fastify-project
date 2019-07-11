@@ -12,6 +12,7 @@ fastify.register(pointOfView, {
   options: {
     partials: {
       header: './views/partials/header.hbs',
+      books: './views/partials/books.hbs',
     }
   }
 });
