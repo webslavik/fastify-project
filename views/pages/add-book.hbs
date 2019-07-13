@@ -1,0 +1,27 @@
+<div class="row justify-content-center">
+  <div class="col-sm-6">
+    <div id='addBookAlert' class="alert alert-success d-none"></div>
+
+    <h2 class='mb-4'>Add book</h2>
+
+    <form id='addBookForm'>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" value='harry potter and the philosophers stone'>
+      </div>
+      <div class="form-group">
+        <label for="cover">Link to cover:</label>
+        <input type="text" class="form-control" id="cover" value='https://hpmedia.bloomsbury.com/rep/s/9780747554561_309832.jpeg'>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" rows="5" id="description">Harry Potter has been living an ordinary life, constantly abused by his surly and cold aunt and uncle, </textarea>
+      </div>
+      <button id='addBookBtn' type="submit" class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm d-none"></span>
+        Add book
+      </button>
+    </form>
+  </div>
+</div>
+
