@@ -4,6 +4,7 @@ const static = require('fastify-static');
 const handlebars = require('handlebars');
 const path = require('path');
 const mongoose = require("mongoose");
+const helmet = require('fastify-helmet');
 
 // Credentials
 const dbUser = 'bob';
@@ -17,6 +18,8 @@ const {
 } = require('./schemas');
 
 // plugins
+fastify.register(helmet);
+
 fastify.register(pointOfView, {
   engine: {
     handlebars,
