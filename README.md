@@ -4,3 +4,7 @@ Fastify example project:
 - Handlebars
 - Bootstrap 4
 - MongoDB (mLab)
+
+## run
+- npm install
+- npm run dev
