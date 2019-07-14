@@ -21,6 +21,28 @@ const addBook = {
   }
 };
 
+const deleteBook = {
+  schema: {
+    body: {
+      type: 'object',
+      properties: {
+        bookId: { type: 'string' },
+      },
+      required: ['bookId'],
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          success: { type: 'boolean' },
+          message: { type: 'string' },
+        }
+      }
+    }
+  }
+};
+
 module.exports = {
   addBook,
+  deleteBook,
 };

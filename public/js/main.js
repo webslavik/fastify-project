@@ -1,48 +1,38 @@
-const addBookForm = document.querySelector('#addBookForm');
-const addBookBtn = document.querySelector('#addBookBtn');
-const addBookBtnSpinner = addBookBtn.querySelector('.spinner-border');
-const addBookAlert = document.querySelector('#addBookAlert');
-const nameField = document.querySelector('#name');
-const coverField = document.querySelector('#cover');
-const descriptionField = document.querySelector('#description');
+const deleteBookBtn = document.querySelectorAll('.delete-book-btn');
+const deleteOverlay = document.querySelector('#deleteOverlay');
+const html = document.documentElement;
 
-addBookForm.addEventListener('submit', async function(event) {
-  event.preventDefault();
+let i = 0;
+const btnLength = deleteBookBtn.length;
 
-  const name = nameField.value;
-  const cover = coverField.value;
-  const description = descriptionField.value;
-  
-  const bookData = {
-    name,
-    cover,
-    description,
-  }
+for (i; i < btnLength; i++) {
+  deleteBookBtn[i].addEventListener('click', async function(event) {
+    const bookId = this.dataset.id;
 
-  nameField.disabled = true;
-  coverField.disabled = true;
-  descriptionField.disabled = true;
-  addBookBtn.disabled = true;
-  addBookBtnSpinner.classList.remove('d-none');
+    deleteOverlay.classList.remove('d-none');
+    html.style.overflow = 'hidden';
 
-  try {
-    const response = await fetch('/api/add-book', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(bookData),
-    });
-    
-    const data = await response.json();
+    try {
+      const response = await fetch('/api/delete-book', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ bookId }),
+      });
 
-    addBookAlert.classList.remove('d-none');
-    addBookAlert.innerHTML = data.message;
+      const data = await response.json();
 
-    setTimeout(() => {
-      location.href = '/';
-    }, 1000);
-  } catch (err) {
-    console.log(err)
-  }
-});
+      // TODO: in Production maybe need to remove timeout
+      setTimeout(() => {
+        deleteOverlay.classList.add('d-none');
+        html.style.overflow = 'visible';
+
+        document.querySelector(`[data-book="${bookId}"]`).remove();
+        scroll(0, 0);
+      }, 1000);
+    } catch (err) {
+      console.log(err)
+    }
+  });
+}

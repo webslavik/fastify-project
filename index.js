@@ -10,7 +10,7 @@ const dbUser = 'bob';
 const dbPassword = 'T4iWAimzJUr5B8k';
 
 const booksController = require('./controllers/books');
-const { addBook: addBookSchema } = require('./schemas');
+const { addBook: addBookSchema, deleteBook: deleteBookSchema, } = require('./schemas');
 
 // plugins
 fastify.register(pointOfView, {
@@ -21,9 +21,9 @@ fastify.register(pointOfView, {
     partials: {
       // partials
       header: './views/partials/header.hbs',
-      books: './views/partials/books.hbs',
-
+      
       // pages
+      main: './views/pages/main.hbs',
       addBook: './views/pages/add-book.hbs',
     },
   }
@@ -40,6 +40,7 @@ fastify.get('/add-book', booksController.viewAddBook);
 
 // API
 fastify.post('/api/add-book', addBookSchema, booksController.addBook);
+fastify.delete('/api/delete-book', deleteBookSchema, booksController.deleteBook);
 
 
 // setup 

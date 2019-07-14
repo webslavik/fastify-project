@@ -37,8 +37,27 @@ async function addBook(request, reply) {
   }
 }
 
+async function deleteBook(request, reply) {
+  try {
+    const { bookId } = request.body;
+    await Book.remove({ _id: bookId });
+    
+    reply.code(200).send({
+      success: true,
+      message: 'Book was deleted',
+    });
+  } catch (err) {
+    reply.code(500).send({ 
+      success: false, 
+      message: err.message,
+    });
+  }
+}
+
 module.exports = {
+  viewAddBook,
+
   fetchBooks,  
   addBook,
-  viewAddBook,
+  deleteBook,
 };

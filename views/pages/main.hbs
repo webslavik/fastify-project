@@ -1,0 +1,21 @@
+<div id='deleteOverlay' class='delete-overlay d-none'>
+  <div class="spinner-border text-primary"></div>
+</div>
+
+<div class="row">
+  {{#each books}}
+    <div data-book={{ _id }} class="col-sm-4 mb-4">
+      <div class="card">
+        <img class="card-img-top" src="{{ cover }}" alt="Card image">
+        <div class="card-body">
+          <h4 class="card-title">{{ name }}</h4>
+          <p class="card-text">{{ description }}</p>
+          <div>
+            <button class='edit-book-btn btn btn-success' data-id='{{ _id }}'>Edit</button>
+            <button class='delete-book-btn btn btn-danger' data-id='{{ _id }}'>Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
