@@ -10,7 +10,11 @@ const dbUser = 'bob';
 const dbPassword = 'T4iWAimzJUr5B8k';
 
 const booksController = require('./controllers/books');
-const { addBook: addBookSchema, deleteBook: deleteBookSchema, } = require('./schemas');
+const { 
+  addBook: addBookSchema,
+  editBook: editBookSchema,
+  deleteBook: deleteBookSchema,
+} = require('./schemas');
 
 // plugins
 fastify.register(pointOfView, {
@@ -25,6 +29,7 @@ fastify.register(pointOfView, {
       // pages
       main: './views/pages/main.hbs',
       addBook: './views/pages/add-book.hbs',
+      editBook: './views/pages/edit-book.hbs',
     },
   }
 });
@@ -37,9 +42,11 @@ fastify.register(static, {
 // routes
 fastify.get('/', booksController.fetchBooks);
 fastify.get('/add-book', booksController.viewAddBook);
+fastify.get('/edit-book/:bookId', booksController.viewEditBook);
 
 // API
 fastify.post('/api/add-book', addBookSchema, booksController.addBook);
+fastify.patch('/api/edit-book', editBookSchema, booksController.editBook);
 fastify.delete('/api/delete-book', deleteBookSchema, booksController.deleteBook);
 
 

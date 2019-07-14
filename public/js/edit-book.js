@@ -1,43 +1,45 @@
-const addBookForm = document.querySelector('#addBookForm');
-const addBookBtn = document.querySelector('#addBookBtn');
-const addBookBtnSpinner = addBookBtn.querySelector('.spinner-border');
-const addBookAlert = document.querySelector('#addBookAlert');
+const editBookForm = document.querySelector('#editBookForm');
+const editBookBtn = document.querySelector('#editBookBtn');
+const editBookBtnSpinner = editBookBtn.querySelector('.spinner-border');
+const editBookAlert = document.querySelector('#editBookAlert');
 const nameField = document.querySelector('#name');
 const coverField = document.querySelector('#cover');
 const descriptionField = document.querySelector('#description');
 
-addBookForm.addEventListener('submit', async function(event) {
+editBookForm.addEventListener('submit', async function(event) {
   event.preventDefault();
 
+  const bookId = this.dataset.bookId;
   const name = nameField.value;
   const cover = coverField.value;
   const description = descriptionField.value;
   
-  const bookData = {
+  const editData = {
+    bookId,
     name,
     cover,
     description,
-  }
+  };
 
   nameField.disabled = true;
   coverField.disabled = true;
   descriptionField.disabled = true;
-  addBookBtn.disabled = true;
-  addBookBtnSpinner.classList.remove('d-none');
+  editBookBtn.disabled = true;
+  editBookBtnSpinner.classList.remove('d-none');
 
   try {
-    const response = await fetch('/api/add-book', {
-      method: 'POST',
+    const response = await fetch('/api/edit-book', {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(bookData),
+      body: JSON.stringify(editData),
     });
     
     const data = await response.json();
 
-    addBookAlert.classList.remove('d-none');
-    addBookAlert.innerHTML = data.message;
+    editBookAlert.classList.remove('d-none');
+    editBookAlert.innerHTML = data.message;
 
     setTimeout(() => {
       location.href = '/';

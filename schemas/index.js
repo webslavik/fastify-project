@@ -21,6 +21,29 @@ const addBook = {
   }
 };
 
+const editBook = {
+  schema: {
+    body: {
+      type: 'object',
+      properties: {
+        name: { type: 'string' },
+        cover: { type: 'string' },
+        description: { type: 'string' },
+      },
+      required: ['name', 'cover', 'description'],
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          success: { type: 'boolean'},
+          message: { type: 'string' },
+        }
+      }
+    }
+  }
+};
+
 const deleteBook = {
   schema: {
     body: {
@@ -44,5 +67,6 @@ const deleteBook = {
 
 module.exports = {
   addBook,
+  editBook,
   deleteBook,
 };
